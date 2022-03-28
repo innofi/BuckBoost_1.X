@@ -58,9 +58,13 @@ void __interrupt() INTERRUPT_InterruptManager (void)
     }
     else if(INTCONbits.PEIE == 1)
     {
-        if(PIE5bits.CLC1IE == 1 && PIR5bits.CLC1IF == 1)
+        if(PIE5bits.CLC4IE == 1 && PIR5bits.CLC4IF == 1)
         {
-            CLC1_ISR();
+            // configured as rising edge interrupt for the PWM3 output period
+            // init timer and its interrupts
+            TMR0_StartTimer();
+            TMR1_StartTimer();
+            CLC4_ISR();
         } 
         else if(PIE4bits.TMR1IE == 1 && PIR4bits.TMR1IF == 1)
         {
